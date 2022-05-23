@@ -1,0 +1,12 @@
+---
+- name: "Install ansible python3 mysql dependency"
+  apt:
+    name: python3-mysqldb
+    state: latest
+- name: Create database user with name 'Tom' and password 'the_password' with all database privileges
+  community.mysql.mysql_user:
+    name: Tom
+    password: the_password
+    priv: '*.*:ALL'
+    state: present
+

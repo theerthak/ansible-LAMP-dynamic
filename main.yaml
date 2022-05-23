@@ -1,0 +1,37 @@
+---
+- name: LAMP
+  hosts: all
+  gather_facts: yes
+  vars_files:
+    - vars.yaml
+    
+  handlers:
+      - name: Restart service
+        include_tasks: handlers.yaml
+
+  tasks:
+   
+     - include_tasks: apache2.yaml
+       when: ansible_facts['os_family'] == "Debian"
+     - include_tasks: redhat.yaml
+       when: ansible_facts['os_family'] == 'redhat'
+
+     - name: copy the website file
+       ansible.builtin.template:
+         src: templates/index.html.j2
+         dest: "{{ doc_root }}/index.html"
+
+     - include_tasks: mysql.yaml
+
+
+     - name: copy the my.cnf file
+       ansible.builtin.copy:
+        src: /home/dell/playbook/task5/.my.cnf
+        dest: /home/Tom/.my.cnf
+        mode: 0600
+        owner: Tom
+        group: Tom
+
+     
+     
+  

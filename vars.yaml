@@ -1,0 +1,7 @@
+---
+http_port: 80
+admin: bob@gmail.com
+doc_root: /var/www/html
+domain: testjh.cf
+config: /etc/apache2/sites-available/000-default.conf
+config_httpd: /etc/httpd/httpd.conf.default
