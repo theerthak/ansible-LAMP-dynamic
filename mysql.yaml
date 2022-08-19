@@ -5,6 +5,8 @@
     state: latest
 - name: Create database user with name 'Tom' and password 'the_password' with all database privileges
   community.mysql.mysql_user:
+    login_user: "root"
+    login_password: "12345"
     name: Tom
     password: the_password
     priv: '*.*:ALL'

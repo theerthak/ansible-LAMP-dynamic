@@ -1,6 +1,7 @@
 ---
 - name: LAMP
-  hosts: all
+  hosts: ubuntu
+  become: true
   gather_facts: yes
   vars_files:
     - vars.yaml
@@ -16,6 +17,13 @@
      - include_tasks: redhat.yaml
        when: ansible_facts['os_family'] == 'redhat'
 
+  #   - name: verfy the apache2 is running
+   #    ansible.builtin.service_facts:
+
+   #  - name: Printing
+   #    debug:
+   #     var: ansible_facts.services.apache2.state
+
      - name: copy the website file
        ansible.builtin.template:
          src: templates/index.html.j2
@@ -24,13 +32,14 @@
      - include_tasks: mysql.yaml
 
 
+
      - name: copy the my.cnf file
        ansible.builtin.copy:
-        src: /home/dell/playbook/task5/.my.cnf
-        dest: /home/Tom/.my.cnf
+        src: /home/dell/playbook/task4/.my.cnf
+        dest: /home/ubuntu/.my.cnf
         mode: 0600
-        owner: Tom
-        group: Tom
+        owner: ubuntu
+        group: ubuntu
 
      
      
